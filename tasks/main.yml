@@ -1,0 +1,21 @@
+---
+
+
+- name: "Incluindo tarefas de instalação de depenendencias especificas para o SO"
+  include_tasks: "{{ item }}"
+  with_first_found:
+   - "{{ ansible_distribution | lower }}.yml"
+   - "{{ ansible_os_family | lower }}.yml"
+   - "os_defaults.yml"
+  tags: 
+   - main
+
+  
+- name: "Instalando o Docker Compose"
+  when: os_default is not defined
+  pip:
+    name: docker-compose
+    state: latest
+  become: true
+  tags:
+    - docker-compose
