@@ -4,7 +4,7 @@
   zypper:
     name: "{{ python_packages }}"
     state: latest
-    force: yes
+    update_cache: yes
   become: true
   tags:
     - deps
